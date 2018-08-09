@@ -70,10 +70,10 @@ class App extends Component {
     let assignedClasses = []
 
     if (this.state.persons.length <= 2) {
-      assignedClasses.push( classes.red )
+      assignedClasses.push(classes.red)
     }
     if (this.state.persons.length <= 1) {
-      assignedClasses.push( classes.bold )
+      assignedClasses.push(classes.bold)
     }
 
     return (
