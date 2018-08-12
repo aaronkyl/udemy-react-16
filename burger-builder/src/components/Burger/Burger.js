@@ -7,11 +7,20 @@ const burger = (props) => {
   // for each ingredient type create an empty array of length = number
   // of that ingredient type, then fill each ingredient-specific sub array
   // with that number of an ingredient, leading to an array of arrays
-  const transformedIngredients = Object.keys(props.ingredients).map(ingredient => {
-    return [...Array(props.ingredients[ingredient])].map((_, index) => {
-      return <BurgerIngredient key={ingredient + index} type={ingredient}/> 
+  // concat() allows for the merging of arrays to flatten out our array
+  // of arrays
+  let transformedIngredients = Object.keys(props.ingredients)
+    .map(ingredient => {
+      return [...Array(props.ingredients[ingredient])].map((_, index) => {
+        return <BurgerIngredient key={ingredient + index} type={ingredient}/> 
+      })
     })
-  })
+    .reduce((acc, el) => acc.concat(el), [])
+  console.log(transformedIngredients)
+
+  if (!transformedIngredients.length) {
+    transformedIngredients = <p>Please add ingredients</p>
+  }
 
   return (
     <div className={classes.Burger}>
