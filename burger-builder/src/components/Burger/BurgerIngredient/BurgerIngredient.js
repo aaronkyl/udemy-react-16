@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classes from './BurgerIngredient.css'
 
+// this was only turned into a class to allow for PropType checking
 class BurgerIngredient extends Component {
   render () {
     let ingredient = null
