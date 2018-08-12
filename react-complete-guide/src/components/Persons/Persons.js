@@ -42,6 +42,7 @@ class Persons extends PureComponent {
       return <Person
         click={this.props.clicked.bind(this, index)}
         name={person.name}
+        authenticated={this.props.isAuthenticated}
         position={index}
         age={person.age}
         key = {person.id}
