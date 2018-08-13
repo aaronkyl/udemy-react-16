@@ -1,5 +1,6 @@
 import React from 'react'
 import BuildControl from './BuildControl/BuildControl'
+import Aux from '../../../hoc/Aux'
 import classes from './BuildControls.css'
 
 const buildControls = (props) => {
@@ -16,9 +17,13 @@ const buildControls = (props) => {
     ))
   
     return (
-    <div className={classes.BuildControls}>
-      {buildControlComponents}
-    </div>
+      <Aux>
+        <p className={classes.Price}>Current Price: <b>${props.price.toFixed(2)}</b></p>
+        <div className={classes.BuildControls}>
+          {buildControlComponents}
+          <button className={classes.OrderButton} disabled={!props.purchasable}>PLACE ORDER</button>
+        </div>
+      </Aux>
   )
 }
 
