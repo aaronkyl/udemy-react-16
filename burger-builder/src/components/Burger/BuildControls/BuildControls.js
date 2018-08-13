@@ -9,8 +9,9 @@ const buildControls = (props) => {
         key={ingredient} 
         type={ingredient} 
         label={ingredient.toUpperCase()} 
-        more={props.more} 
-        less={props.less} 
+        more={props.addIngredient} 
+        less={props.removeIngredient} 
+        disabled={props.disabled[ingredient]}
       />
     ))
   
