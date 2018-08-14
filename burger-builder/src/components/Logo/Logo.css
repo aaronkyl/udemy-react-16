@@ -1,7 +1,11 @@
 .Logo {
   background-color: white;
   padding: 8px;
-  height: 80%;
+  /* 
+  Setting height to 100% and controlling it in the
+  components where it is used
+  */
+  height: 100%;
   box-sizing: border-box;
   border-radius: 5px;
 }
