@@ -5,20 +5,21 @@ import classes from './SideDrawer.css'
 import Backdrop from '../../UI/Backdrop/Backdrop'
 
 const sideDrawer = (props) => {
-
-    return (
-      <React.Fragment>
-        <div className={classes.SideDrawer}>
-          <div className={classes.Logo}>
-            <Logo />
-          </div>
-          <nav>
-            <NavigationItems />
-          </nav>
+  let attachedClasses = [classes.SideDrawer, classes.Close]
+  if (props.open) attachedClasses = [classes.SideDrawer, classes.Open]
+  return (
+    <React.Fragment>
+      <div className={attachedClasses.join(' ')}>
+        <div className={classes.Logo}>
+          <Logo />
         </div>
-        <Backdrop show />
-      </React.Fragment>
-    )
+        <nav>
+          <NavigationItems />
+        </nav>
+      </div>
+      <Backdrop show={props.open} clicked={props.closed} />
+    </React.Fragment>
+  )
 }
 
 export default sideDrawer
