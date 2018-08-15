@@ -17,16 +17,19 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0
-    },
+    ingredients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false
+  }
+
+  componentDidMount() {
+    axios.get('https://react-burger-builder-29be2.firebaseio.com/ingredients.json')
+      .then(response => {
+        this.setState({ingredients: response.data})
+      })
+      .catch(error => error)
   }
 
   updatePurchaseState = (ingredients) => {
@@ -128,7 +131,7 @@ class BurgerBuilder extends Component {
       orderSummary = <Spinner />
     }
 
-    return (
+    let burger = (
       <Aux>
         <Burger ingredients={this.state.ingredients} purchasable={this.state.purchasable} />
         <BuildControls 
@@ -140,6 +143,14 @@ class BurgerBuilder extends Component {
           purchasable={this.state.purchasable}
           purchasing={this.purchaseHandler}
         />
+      </Aux>)
+      if (!this.state.ingredients) {
+        burger = <Spinner />
+      }
+
+    return (
+      <Aux>
+        {burger}
         <Modal show={this.state.purchasing} modalClosed={this.cancelPurchaseHandler} loading={this.state.loading} >
           {orderSummary}
         </Modal>
