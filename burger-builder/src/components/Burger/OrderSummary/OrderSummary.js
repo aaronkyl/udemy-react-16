@@ -5,9 +5,9 @@ import Button from '../../UI/Button/Button'
 class OrderSummary extends Component {
   // This was a functional component that was turned into a class
   // to use lifecycle hooks for teaching purposes
-  componentWillUpdate() {
-    console.log('[OrderSummary] componentWillUpdate()')
-  }
+  // componentWillUpdate() {
+  //   console.log('[OrderSummary] componentWillUpdate()')
+  // }
 
   render() {
     const ingredientSummary = []

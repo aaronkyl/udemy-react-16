@@ -21,15 +21,18 @@ class BurgerBuilder extends Component {
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
   }
 
   componentDidMount() {
     axios.get('https://react-burger-builder-29be2.firebaseio.com/ingredients.json')
       .then(response => {
         this.setState({ingredients: response.data})
+        return true
       })
-      .catch(error => error)
+      .then(response => this.updatePurchaseState(this.state.ingredients))
+      .catch(error => this.setState({error: true}))
   }
 
   updatePurchaseState = (ingredients) => {
@@ -121,32 +124,36 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0
     }
 
-    let orderSummary = <OrderSummary 
-      ingredients={this.state.ingredients} 
-      cancelPurchasing={this.cancelPurchaseHandler} 
-      continuePurchasing={this.purchaseContinueHandler}
-      totalPrice={this.state.totalPrice}
-    />
+    let orderSummary = null
+    let burger = this.state.error ? <p>Application Error!</p> : <Spinner />
+
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} purchasable={this.state.purchasable} />
+          <BuildControls 
+            ingredients={this.state.ingredients} 
+            addIngredient={this.addIngredientHandler} 
+            removeIngredient={this.removeIngredientHandler} 
+            disabled={disabledInfo}
+            price={this.state.totalPrice} 
+            purchasable={this.state.purchasable}
+            purchasing={this.purchaseHandler}
+          />
+        </Aux>
+      )
+
+      orderSummary = <OrderSummary 
+        ingredients={this.state.ingredients} 
+        cancelPurchasing={this.cancelPurchaseHandler} 
+        continuePurchasing={this.purchaseContinueHandler}
+        totalPrice={this.state.totalPrice}
+      />
+    }
+
     if (this.state.loading) {
       orderSummary = <Spinner />
     }
-
-    let burger = (
-      <Aux>
-        <Burger ingredients={this.state.ingredients} purchasable={this.state.purchasable} />
-        <BuildControls 
-          ingredients={this.state.ingredients} 
-          addIngredient={this.addIngredientHandler} 
-          removeIngredient={this.removeIngredientHandler} 
-          disabled={disabledInfo}
-          price={this.state.totalPrice} 
-          purchasable={this.state.purchasable}
-          purchasing={this.purchaseHandler}
-        />
-      </Aux>)
-      if (!this.state.ingredients) {
-        burger = <Spinner />
-      }
 
     return (
       <Aux>
