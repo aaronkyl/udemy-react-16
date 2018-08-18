@@ -8,10 +8,10 @@ class FullPost extends Component {
         loadedPost: null
     }
 
-    componentDidUpdate() {
-        if (this.props.postId) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.props.postId !== this.state.loadedPost.id)) {
-                axios.get('/posts/' + this.props.postId)
+    componentDidMount() {
+        if (this.props.match.params.postId) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.props.match.params.postId !== this.state.loadedPost.id)) {
+                axios.get('/posts/' + this.props.match.params.postId)
                     .then(response => {
                         this.setState({loadedPost: response.data})
                     })
@@ -20,13 +20,13 @@ class FullPost extends Component {
     }
 
     deletePost = () => {
-        axios.delete('/posts/' + this.props.postId)
+        axios.delete('/posts/' + this.state.loadedPost.id)
             .then(response => console.log(response))
     }
 
     render () {
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>
-        if (this.props.postId) {
+        if (this.props.match.params.postId) {
             post = <p style={{textAlign: 'center'}}>Loading...</p>
         }
         if (this.state.loadedPost) {
