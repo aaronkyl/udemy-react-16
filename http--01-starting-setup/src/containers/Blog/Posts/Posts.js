@@ -5,11 +5,11 @@ import './Posts.css'
 
 class Posts extends Component {
   state = {
-    posts: []
+    posts: [],
+    error: false
   }
 
   componentDidMount() {
-    console.log(this.props)
     axios.get('/posts')
       .then(response => {
         const posts = response.data.slice(0, 4)
@@ -19,8 +19,7 @@ class Posts extends Component {
         this.setState({posts: updatedPosts})
       })
       .catch(error => {
-        console.log(error)
-        // this.setState({error: true})
+        this.setState({error: true})
       })
   }
 
