@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Post from '../../../components/Post/Post'
+import FullPost from '../FullPost/FullPost'
 import axios from '../../../axios'
 import './Posts.css'
 
@@ -45,9 +46,12 @@ class Posts extends Component {
     }
 
     return (
-      <section className="Posts">
-        {posts}
-      </section>
+      <div>
+        <section className="Posts">
+          {posts}
+        </section>
+        <Route path="/:postId" component={FullPost} />
+      </div>
     )
   }
 }
