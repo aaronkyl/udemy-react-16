@@ -17,7 +17,7 @@ const burger = (props) => {
     })
     .reduce((acc, el) => acc.concat(el), [])
 
-  if (!props.purchasable) {
+  if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please add ingredients</p>
   }
 
