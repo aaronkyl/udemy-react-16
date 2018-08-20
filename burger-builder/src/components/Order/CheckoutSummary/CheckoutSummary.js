@@ -8,11 +8,7 @@ const checkoutSummary = (props) => {
     <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes good!</h1>
       <div style={{width: '300px', margin: 'auto'}}>
-        <Burger ingredients={{salad: 1,
-      meat: 1,
-      cheese: 1,
-      bacon: 1
-    }} />
+        <Burger ingredients={props.ingredients} />
       </div>
       <Button 
         btnType='Danger' 
