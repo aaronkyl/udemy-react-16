@@ -8,11 +8,13 @@ import classes from './ContactData.css'
 
 class ContactData extends Component {
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      postalCode: '' 
+    orderForm: {
+      name: 'Aaron Wilkinson',
+      street: '123 Main',
+      zipCode: '12345',
+      country: 'USA',
+      email: 'test@test.com',
+      deliveryMethod: 'fastest'
     },
     loading: false
   }
@@ -22,17 +24,7 @@ class ContactData extends Component {
     this.setState({loading: true})
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price,
-      customer: {
-        name: 'Aaron Wilkinson',
-        address: {
-          street: '123 Main',
-          zipCode: '12345',
-          country: 'USA'
-        },
-        email: 'test@test.com'
-      },
-      deliveryMethod: 'fastest'
+      price: this.props.price
     }
 
     // Firebase requires .json for the node
